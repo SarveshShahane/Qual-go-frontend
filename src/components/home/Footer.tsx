@@ -2,68 +2,96 @@ import React from 'react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-[#05070a] border-t border-white/10 py-12 text-slate-400 text-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-          {/* Col 1 */}
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="font-heading font-bold text-xl text-white">
-                QUAL<span className="text-cyan-400">.DEV</span>
+    <footer className="w-full bg-paper border-t border-rule py-12 text-sm text-ink-2">
+      <div className="academic-container">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+          {/* Col 1: Lab Masthead */}
+          <div className="md:col-span-1">
+            <div className="mb-3">
+              <span className="font-display font-semibold text-lg text-ink tracking-tight">
+                QUALGO
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/30 text-cyan-300">
-                Egreen Quanta
+              <span className="block text-xs text-muted">
+                Quantum Algorithm Laboratory
               </span>
             </div>
-            <p className="text-slate-400 text-xs sm:text-sm max-w-md leading-relaxed">
-              AI-Based Interactive Quantum Algorithm Learning Platform. Empowering students, 
-              researchers, and engineers with visual circuit builders, multi-backend quantum simulators, 
-              and intelligent pedagogical guidance.
+            <p className="text-xs text-muted leading-relaxed">
+              Open interactive computing environment and instructional platform for quantum algorithms, statevector simulation, and linear algebra foundations.
             </p>
-            <div className="mt-4 flex items-center gap-2 text-xs font-mono text-slate-500">
-              <span>Category: Software</span>
-              <span>•</span>
-              <span className="text-emerald-400">Smart Education</span>
-            </div>
+            <p className="mt-3 text-xs text-muted">
+              Division of Quantum Education · Egreen Quanta
+            </p>
           </div>
 
-          {/* Col 2 */}
+          {/* Col 2: Simulation Engines */}
           <div>
-            <h5 className="font-heading font-semibold text-white text-sm mb-4">Supported SDKs</h5>
-            <ul className="space-y-2 text-xs font-mono">
-              <li className="hover:text-cyan-300 transition-colors">Qiskit Aer Simulator</li>
-              <li className="hover:text-cyan-300 transition-colors">Google Cirq Engine</li>
-              <li className="hover:text-cyan-300 transition-colors">Xanadu PennyLane</li>
-              <li className="hover:text-cyan-300 transition-colors">qBraid Lab Cloud</li>
-              <li className="hover:text-cyan-300 transition-colors">OpenQASM 3.0 Standard</li>
+            <h4 className="font-display font-semibold text-xs text-ink mb-3 tracking-normal">
+              Simulation Backends
+            </h4>
+            <ul className="space-y-1.5 text-xs text-muted">
+              <li>Qiskit Aer Statevector Engine</li>
+              <li>Google Cirq Architecture</li>
+              <li>Xanadu PennyLane Differentiable</li>
+              <li>OpenQASM 3.0 Intermediate Rep</li>
+              <li>Wasm Local Micro-Simulators</li>
             </ul>
           </div>
 
-          {/* Col 3 */}
+          {/* Col 3: Instructional Modules */}
           <div>
-            <h5 className="font-heading font-semibold text-white text-sm mb-4">Learning Tracks</h5>
-            <ul className="space-y-2 text-xs">
-              <li className="hover:text-cyan-300 transition-colors">01. Quantum Mathematics</li>
-              <li className="hover:text-cyan-300 transition-colors">02. Qubits & Bloch Spheres</li>
-              <li className="hover:text-cyan-300 transition-colors">03. Entanglement & Teleportation</li>
-              <li className="hover:text-cyan-300 transition-colors">04. Grover & Shor Algorithms</li>
-              <li className="hover:text-cyan-300 transition-colors">05. Variational Quantum Eigensolver</li>
+            <h4 className="font-display font-semibold text-xs text-ink mb-3 tracking-normal">
+              Instructional Tracks
+            </h4>
+            <ul className="space-y-1.5 text-xs text-muted">
+              <li>Module 01 · Mathematical Foundations</li>
+              <li>Module 02 · Single-Qubit Systems</li>
+              <li>Module 03 · Entanglement Formalisms</li>
+              <li>Module 04 · Grover Search & Factoring</li>
+              <li>Module 05 · Variational Algorithms</li>
+            </ul>
+          </div>
+
+          {/* Col 4: Reference Resources */}
+          <div>
+            <h4 className="font-display font-semibold text-xs text-ink mb-3 tracking-normal">
+              Reference Courseware
+            </h4>
+            <ul className="space-y-1.5 text-xs text-muted">
+              <li>Course Syllabus & Notes</li>
+              <li>Benchmark Algorithmic Circuits</li>
+              <li>Interactive Dirac State Studio</li>
+              <li>System Milestone Register</li>
+              <li>Python & Qiskit Sandboxes</li>
             </ul>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="pt-6 border-t border-rule flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-muted">
           <div>
-            © {new Date().getFullYear()} Egreen Quanta. All rights reserved. Developed for Smart Education.
+            <span>© 2026 QUALGO · Quantum Algorithm Laboratory. Released under open academic educational license.</span>
           </div>
-          <div className="flex items-center gap-6">
-            <span className="hover:text-slate-300 cursor-pointer">Documentation</span>
-            <span className="hover:text-slate-300 cursor-pointer">Open Source</span>
-            <span className="hover:text-slate-300 cursor-pointer">Terms & Privacy</span>
-          </div>
+          <nav className="flex flex-wrap items-center gap-4 sm:gap-6" aria-label="Legal and citation links">
+            <a
+              href="#metadata"
+              className="text-muted hover:text-ink active:text-ink transition-colors focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
+            >
+              Academic Colophon
+            </a>
+            <a
+              href="#curriculum"
+              className="text-muted hover:text-ink active:text-ink transition-colors focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
+            >
+              Syllabus Guidelines
+            </a>
+            <a
+              href="#deliverables"
+              className="text-muted hover:text-ink active:text-ink transition-colors focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
+            >
+              System Specifications
+            </a>
+          </nav>
         </div>
       </div>
     </footer>
   );
 };
-

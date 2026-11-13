@@ -3,8 +3,8 @@ import { useAppSelector, useAppDispatch } from '../../store';
 import { logoutUser } from '../../store/slices/authSlice';
 
 interface NavbarProps {
-  currentView: 'home' | 'auth';
-  onNavigate: (view: 'home' | 'auth') => void;
+  currentView: 'home' | 'auth' | 'courses' | 'designer';
+  onNavigate: (view: 'home' | 'auth' | 'courses' | 'designer') => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
@@ -31,120 +31,115 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#07090e]/80 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-50 w-full border-b border-rule bg-paper/95 backdrop-blur-md">
+      <div className="academic-container">
         <div className="flex items-center justify-between h-16">
-          {/* Brand Logo */}
-          <div 
-            className="flex items-center gap-3 cursor-pointer group"
+          {/* Institution Masthead */}
+          <div
+            className="flex items-center gap-3 cursor-pointer select-none"
             onClick={() => onNavigate('home')}
           >
-            <div className="relative w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-400 to-indigo-600 flex items-center justify-center p-0.5 shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all">
-              <div className="w-full h-full bg-[#07090e] rounded-[7px] flex items-center justify-center">
-                <svg className="w-5 h-5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)" />
-                  <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-30 12 12)" />
-                  <circle cx="12" cy="12" r="2" fill="currentColor" />
-                </svg>
-              </div>
+            <div className="w-8 h-8 rounded-sm bg-ink text-paper flex items-center justify-center font-display font-bold text-sm tracking-tight">
+              QG
             </div>
             <div className="flex flex-col">
-              <span className="font-heading font-bold text-lg tracking-tight text-white flex items-center gap-2">
-                QUAL<span className="text-cyan-400">.DEV</span>
-                <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 rounded">
-                  Egreen Quanta
-                </span>
+              <span className="font-display font-bold text-base tracking-tight text-ink leading-tight">
+                QUALGO
               </span>
-              <span className="text-[11px] text-slate-400 font-sans tracking-wide">
-                Interactive Quantum AI Platform
+              <span className="text-xs text-muted font-body tracking-normal">
+                Quantum Algorithm Laboratory
               </span>
             </div>
           </div>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center gap-1 lg:gap-2">
+          {/* Academic Primary Navigation */}
+          <div className="hidden md:flex items-center gap-1">
             <button
-              onClick={() => scrollToSection('problem-solution')}
-              className="px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-cyan-300 hover:bg-white/5 rounded-md transition-colors"
+              onClick={() => onNavigate('designer')}
+              className={`px-3 py-1.5 text-sm font-medium rounded-sm border transition-colors cursor-pointer ${
+                currentView === 'designer'
+                  ? 'text-accent-ink bg-accent border-accent font-semibold'
+                  : 'text-ink bg-paper-2 border-rule hover:border-rule-2'
+              }`}
             >
-              Background
+              Quantum Bench
             </button>
             <button
-              onClick={() => scrollToSection('objectives')}
-              className="px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-cyan-300 hover:bg-white/5 rounded-md transition-colors"
-            >
-              Objectives
-            </button>
-            <button
-              onClick={() => scrollToSection('circuit-demo')}
-              className="px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-cyan-300 hover:bg-white/5 rounded-md transition-colors"
-            >
-              Interactive Studio
-            </button>
-            <button
-              onClick={() => scrollToSection('deliverables')}
-              className="px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-cyan-300 hover:bg-white/5 rounded-md transition-colors"
-            >
-              Deliverables
-            </button>
-            <button
-              onClick={() => scrollToSection('curriculum')}
-              className="px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-cyan-300 hover:bg-white/5 rounded-md transition-colors"
+              onClick={() => onNavigate('courses')}
+              className={`px-3 py-1.5 text-sm font-medium rounded-sm border transition-colors cursor-pointer ${
+                currentView === 'courses'
+                  ? 'text-accent-ink bg-navy border-navy font-semibold'
+                  : 'text-ink bg-transparent border-transparent hover:bg-paper-2 hover:border-rule'
+              }`}
             >
               Curriculum
             </button>
             <button
-              onClick={() => scrollToSection('metadata')}
-              className="px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-cyan-300 hover:bg-white/5 rounded-md transition-colors"
+              onClick={() => scrollToSection('circuit-demo')}
+              className="px-3 py-1.5 text-sm font-medium text-ink/80 hover:text-ink hover:bg-paper-2 rounded-sm border border-transparent hover:border-rule transition-colors cursor-pointer"
             >
-              Organization Info
+              Interactive Laboratory
+            </button>
+            <button
+              onClick={() => scrollToSection('problem-solution')}
+              className="px-3 py-1.5 text-sm font-medium text-ink/80 hover:text-ink hover:bg-paper-2 rounded-sm border border-transparent hover:border-rule transition-colors cursor-pointer"
+            >
+              Foundations
+            </button>
+            <button
+              onClick={() => scrollToSection('deliverables')}
+              className="px-3 py-1.5 text-sm font-medium text-ink/80 hover:text-ink hover:bg-paper-2 rounded-sm border border-transparent hover:border-rule transition-colors cursor-pointer"
+            >
+              Syllabus & Register
             </button>
           </div>
 
-          {/* Right Action / Auth */}
+          {/* Right Action / Academic User Session */}
           <div className="hidden md:flex items-center gap-3">
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => onNavigate('auth')}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-slate-900 border border-slate-700 hover:border-cyan-500/50 rounded-lg text-sm text-slate-200 transition-all"
+                  className="flex items-center gap-2 px-3 py-1.5 bg-sheet border border-rule hover:border-rule-2 rounded-sm text-sm text-ink transition-colors cursor-pointer"
                 >
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="font-mono text-xs">{user?.email || 'My Profile'}</span>
+                  <span className="w-2 h-2 rounded-full bg-accent" aria-hidden="true" />
+                  <span className="font-mono text-xs font-medium">{user?.email || 'Student Account'}</span>
                 </button>
                 <button
                   onClick={handleLogout}
-                  className="text-xs text-slate-400 hover:text-rose-400 px-2 py-1 transition-colors"
+                  className="text-xs text-muted hover:text-accent px-2 py-1 transition-colors cursor-pointer"
                 >
-                  Log out
+                  Sign Out
                 </button>
               </div>
             ) : (
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => onNavigate('auth')}
-                  className="px-4 py-1.5 text-sm font-medium text-slate-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 rounded-lg transition-all"
+                  className="px-3.5 py-1.5 text-sm font-medium text-ink bg-paper-2 hover:bg-paper-3 border border-rule rounded-sm transition-colors cursor-pointer"
                 >
                   Sign In
                 </button>
                 <button
-                  onClick={() => scrollToSection('circuit-demo')}
-                  className="px-4 py-1.5 text-sm font-medium text-slate-950 bg-gradient-to-r from-cyan-400 to-sky-300 hover:from-cyan-300 hover:to-sky-200 rounded-lg shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all font-semibold"
+                  onClick={() => {
+                    onNavigate('auth');
+                  }}
+                  className="px-3.5 py-1.5 text-sm font-medium text-accent-ink bg-accent hover:opacity-95 rounded-sm transition-opacity cursor-pointer"
                 >
-                  Launch Studio
+                  Register
                 </button>
               </div>
             )}
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          {/* Mobile Hamburger Toggle */}
+          <div className="flex md:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none"
-              aria-label="Toggle menu"
+              className="p-2 text-ink hover:bg-paper-2 rounded-sm border border-rule"
+              aria-label="Toggle navigation menu"
             >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 {mobileMenuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -156,65 +151,67 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
         </div>
       </div>
 
-      {/* Mobile menu dropdown */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-white/10 bg-[#07090e]/95 backdrop-blur-xl px-4 pt-2 pb-4 space-y-1">
+        <div className="md:hidden border-t border-rule bg-paper px-4 pt-3 pb-6 space-y-2">
           <button
-            onClick={() => scrollToSection('problem-solution')}
-            className="block w-full text-left px-3 py-2 text-base font-medium text-slate-300 hover:text-cyan-400"
+            onClick={() => {
+              onNavigate('designer');
+              setMobileMenuOpen(false);
+            }}
+            className="w-full text-left px-3 py-2 text-sm font-semibold text-accent-ink bg-accent rounded-sm"
           >
-            Background & Problem
+            Quantum Bench
           </button>
           <button
-            onClick={() => scrollToSection('objectives')}
-            className="block w-full text-left px-3 py-2 text-base font-medium text-slate-300 hover:text-cyan-400"
-          >
-            Key Objectives
-          </button>
-          <button
-            onClick={() => scrollToSection('circuit-demo')}
-            className="block w-full text-left px-3 py-2 text-base font-medium text-slate-300 hover:text-cyan-400"
-          >
-            Interactive Studio
-          </button>
-          <button
-            onClick={() => scrollToSection('deliverables')}
-            className="block w-full text-left px-3 py-2 text-base font-medium text-slate-300 hover:text-cyan-400"
-          >
-            Deliverables Matrix
-          </button>
-          <button
-            onClick={() => scrollToSection('curriculum')}
-            className="block w-full text-left px-3 py-2 text-base font-medium text-slate-300 hover:text-cyan-400"
+            onClick={() => {
+              onNavigate('courses');
+              setMobileMenuOpen(false);
+            }}
+            className="w-full text-left px-3 py-2 text-sm font-medium text-ink hover:bg-paper-2 rounded-sm"
           >
             Curriculum
           </button>
           <button
-            onClick={() => scrollToSection('metadata')}
-            className="block w-full text-left px-3 py-2 text-base font-medium text-slate-300 hover:text-cyan-400"
+            onClick={() => scrollToSection('circuit-demo')}
+            className="w-full text-left px-3 py-2 text-sm font-medium text-ink hover:bg-paper-2 rounded-sm"
           >
-            Organization Info
+            Interactive Laboratory
           </button>
-          <div className="pt-4 border-t border-slate-800 flex gap-2">
-            <button
-              onClick={() => {
-                onNavigate('auth');
-                setMobileMenuOpen(false);
-              }}
-              className="flex-1 py-2 text-center text-sm font-medium text-slate-200 bg-slate-900 border border-slate-700 rounded-lg"
-            >
-              {isAuthenticated ? 'My Account' : 'Sign In'}
-            </button>
-            <button
-              onClick={() => scrollToSection('circuit-demo')}
-              className="flex-1 py-2 text-center text-sm font-semibold text-slate-950 bg-cyan-400 rounded-lg"
-            >
-              Launch Studio
-            </button>
+          <button
+            onClick={() => scrollToSection('problem-solution')}
+            className="w-full text-left px-3 py-2 text-sm font-medium text-ink hover:bg-paper-2 rounded-sm"
+          >
+            Foundations
+          </button>
+          <button
+            onClick={() => scrollToSection('deliverables')}
+            className="w-full text-left px-3 py-2 text-sm font-medium text-ink hover:bg-paper-2 rounded-sm"
+          >
+            Syllabus & Register
+          </button>
+          <div className="pt-3 border-t border-rule flex flex-col gap-2">
+            {isAuthenticated ? (
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs text-muted">{user?.email}</span>
+                <button onClick={handleLogout} className="text-xs text-accent font-medium">
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  onNavigate('auth');
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full text-center py-2 text-sm font-medium text-accent-ink bg-accent rounded-sm"
+              >
+                Sign In / Register
+              </button>
+            )}
           </div>
         </div>
       )}
     </nav>
   );
 };
-

@@ -1,98 +1,159 @@
 import React from 'react';
 
-export const Hero: React.FC = () => {
+interface HeroProps {
+  onNavigate?: (view: 'home' | 'auth' | 'courses' | 'designer') => void;
+}
+
+export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28 border-b border-white/10">
-      {/* Background radial glow accents */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-cyan-500/10 blur-[130px] pointer-events-none rounded-full" />
-      <div className="absolute top-1/3 left-1/4 -translate-y-1/2 w-[400px] h-[300px] bg-indigo-500/10 blur-[120px] pointer-events-none rounded-full" />
+    <section className="relative pt-12 pb-16 md:pt-16 md:pb-20 border-b border-rule bg-paper">
+      <div className="academic-container">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Left Column: Heading, Statement, and Direct Actions */}
+          <div className="lg:col-span-7 flex flex-col justify-center">
+            <div className="mb-4">
+              <span className="text-xs font-body text-muted border-b border-rule pb-1">
+                Instructional computing division, coursework and research
+              </span>
+            </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        {/* Organization / Category Meta Tag */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 text-xs font-mono text-cyan-300 mb-6 shadow-inner backdrop-blur-md">
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-          </span>
-          <span className="font-semibold text-slate-200">Egreen Quanta</span>
-          <span className="text-slate-500">•</span>
-          <span>Category: Software</span>
-          <span className="text-slate-500">•</span>
-          <span className="text-emerald-400 font-medium">Theme: Smart Education</span>
-        </div>
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-ink leading-[1.08] max-w-xl">
+              An Open Laboratory for Quantum Algorithms
+            </h1>
 
-        {/* Main Headline */}
-        <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-[1.15]">
-          AI-Based Interactive{' '}
-          <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
-            Quantum Algorithm
-          </span>{' '}
-          Learning Platform
-        </h1>
+            <p className="mt-5 text-base sm:text-lg text-muted font-body leading-relaxed max-w-lg">
+              Interactive circuit design, multi-backend simulation, and Dirac state visualization for university study.
+            </p>
 
-        {/* Subtitle */}
-        <p className="mt-6 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-sans leading-relaxed">
-          Democratizing quantum education with visual circuit design, real-time multi-backend simulation, 
-          rich state & Bloch sphere visualization, and personalized AI-assisted tutoring for students, 
-          researchers, and future quantum engineers.
-        </p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <button
+                onClick={() => {
+                  if (onNavigate) {
+                    onNavigate('designer');
+                  } else {
+                    scrollTo('circuit-demo');
+                  }
+                }}
+                className="px-5 py-2.5 rounded-sm font-body font-semibold text-accent-ink bg-accent hover:opacity-90 active:opacity-95 focus-visible:outline-2 focus-visible:outline-focus transition-opacity cursor-pointer"
+              >
+                Launch Laboratory
+              </button>
 
-        {/* CTAs */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <button
-            onClick={() => scrollTo('circuit-demo')}
-            className="px-6 py-3.5 rounded-xl font-heading font-semibold text-slate-950 bg-gradient-to-r from-cyan-400 to-sky-300 hover:from-cyan-300 hover:to-sky-200 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all flex items-center gap-2 group cursor-pointer"
-          >
-            <span>Launch Interactive Studio</span>
-            <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </button>
+              <button
+                onClick={() => scrollTo('curriculum')}
+                className="px-5 py-2.5 rounded-sm font-body font-medium text-ink bg-sheet hover:bg-paper-2 active:bg-paper-3 border border-rule focus-visible:outline-2 focus-visible:outline-focus transition-colors cursor-pointer"
+              >
+                Review Curriculum
+              </button>
 
-          <button
-            onClick={() => scrollTo('curriculum')}
-            className="px-6 py-3.5 rounded-xl font-heading font-medium text-slate-200 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/40 transition-all flex items-center gap-2 cursor-pointer backdrop-blur-md"
-          >
-            <span>Explore Curriculum</span>
-            <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-          </button>
+              <button
+                onClick={() => scrollTo('problem-solution')}
+                className="px-4 py-2.5 rounded-sm font-body font-medium text-muted hover:text-ink active:text-ink focus-visible:outline-2 focus-visible:outline-focus transition-colors cursor-pointer"
+              >
+                Syllabus Notes
+              </button>
+            </div>
 
-          <button
-            onClick={() => scrollTo('deliverables')}
-            className="px-6 py-3.5 rounded-xl font-heading font-medium text-slate-300 hover:text-cyan-300 bg-transparent hover:bg-white/5 border border-white/10 hover:border-cyan-500/30 transition-all cursor-pointer"
-          >
-            Delivery Matrix
-          </button>
-        </div>
-
-        {/* Feature Pills */}
-        <div className="mt-14 pt-8 border-t border-white/5 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
-          <div className="p-3.5 rounded-lg bg-slate-900/40 border border-white/5">
-            <div className="text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider">01 • Backends</div>
-            <div className="text-sm font-medium text-slate-200 mt-1">Qiskit, Cirq, PennyLane & qBraid</div>
+            {/* Academic Spec Line */}
+            <div className="mt-10 pt-6 border-t border-rule grid grid-cols-3 gap-4 text-xs font-body text-muted">
+              <div>
+                <span className="block text-ink font-semibold">4 Execution engines</span>
+                <span>Qiskit, Cirq, PennyLane, qBraid</span>
+              </div>
+              <div>
+                <span className="block text-ink font-semibold">Dirac notation</span>
+                <span>Exact statevector extraction</span>
+              </div>
+              <div>
+                <span className="block text-ink font-semibold">6 Course units</span>
+                <span>Undergraduate to advanced</span>
+              </div>
+            </div>
           </div>
-          <div className="p-3.5 rounded-lg bg-slate-900/40 border border-white/5">
-            <div className="text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider">02 • Design Modes</div>
-            <div className="text-sm font-medium text-slate-200 mt-1">Visual Drag-and-Drop + Code Sync</div>
-          </div>
-          <div className="p-3.5 rounded-lg bg-slate-900/40 border border-white/5">
-            <div className="text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider">03 • AI Copilot</div>
-            <div className="text-sm font-medium text-slate-200 mt-1">Live Tutoring & Error Detection</div>
-          </div>
-          <div className="p-3.5 rounded-lg bg-slate-900/40 border border-white/5">
-            <div className="text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider">04 • Visualizations</div>
-            <div className="text-sm font-medium text-slate-200 mt-1">Bloch Spheres & Statevectors</div>
+
+          {/* Right Column: Signature Quantum State Monitor */}
+          <div className="lg:col-span-5 border border-rule-2 bg-sheet p-5 rounded-sm shadow-sm">
+            <div className="flex items-center justify-between border-b border-rule pb-3 mb-4">
+              <div>
+                <div className="text-xs font-body font-semibold text-ink">Reference state: Bell pair</div>
+                <div className="text-xs text-muted font-mono mt-0.5">|Φ⁺⟩ = 1/√2 (|00⟩ + |11⟩)</div>
+              </div>
+              <span className="text-xs font-body bg-paper-2 px-2 py-0.5 border border-rule text-ink">
+                Fidelity <span className="font-mono num">1.000</span>
+              </span>
+            </div>
+
+            {/* Dirac Bra-Ket Statevector Breakdown */}
+            <div className="space-y-3 text-xs">
+              <div>
+                <div className="flex justify-between text-muted mb-1 font-body">
+                  <span className="font-mono">|00⟩</span>
+                  <span>Probability: <span className="font-mono num text-ink font-semibold">0.500 (50.0%)</span></span>
+                </div>
+                <div className="w-full bg-paper-2 h-2.5 rounded-none overflow-hidden border border-rule">
+                  <div className="bg-navy h-full w-1/2" />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-muted mb-1 font-body">
+                  <span className="font-mono">|01⟩</span>
+                  <span>Probability: <span className="font-mono num">0.000 (0.0%)</span></span>
+                </div>
+                <div className="w-full bg-paper-2 h-2.5 rounded-none overflow-hidden border border-rule">
+                  <div className="bg-navy h-full w-0" />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-muted mb-1 font-body">
+                  <span className="font-mono">|10⟩</span>
+                  <span>Probability: <span className="font-mono num">0.000 (0.0%)</span></span>
+                </div>
+                <div className="w-full bg-paper-2 h-2.5 rounded-none overflow-hidden border border-rule">
+                  <div className="bg-navy h-full w-0" />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-muted mb-1 font-body">
+                  <span className="font-mono">|11⟩</span>
+                  <span>Probability: <span className="font-mono num text-ink font-semibold">0.500 (50.0%)</span></span>
+                </div>
+                <div className="w-full bg-paper-2 h-2.5 rounded-none overflow-hidden border border-rule">
+                  <div className="bg-navy h-full w-1/2" />
+                </div>
+              </div>
+            </div>
+
+            {/* Backend Verification Register */}
+            <div className="mt-4 pt-4 border-t border-rule">
+              <div className="text-xs font-body text-muted mb-2">
+                Simultaneous target verification
+              </div>
+              <div className="grid grid-cols-3 gap-2 text-center text-xs font-body">
+                <div className="p-1.5 bg-paper-2 border border-rule">
+                  <div className="text-ink font-semibold">Qiskit Aer</div>
+                  <div className="text-[10px] text-muted font-mono num">0.14 ms</div>
+                </div>
+                <div className="p-1.5 bg-paper-2 border border-rule">
+                  <div className="text-ink font-semibold">Cirq v1.7</div>
+                  <div className="text-[10px] text-muted font-mono num">0.18 ms</div>
+                </div>
+                <div className="p-1.5 bg-paper-2 border border-rule">
+                  <div className="text-ink font-semibold">PennyLane</div>
+                  <div className="text-[10px] text-muted font-mono num">0.22 ms</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 };
-

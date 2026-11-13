@@ -86,82 +86,90 @@ export const DeliverablesTable: React.FC = () => {
     : deliverables.filter(d => d.category === filter);
 
   return (
-    <section id="deliverables" className="py-20 border-b border-white/10 bg-[#07090e] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-xs font-mono text-cyan-400 mb-3">
-            <span>EXPECTED DELIVERABLES MATRIX</span>
-          </div>
-          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Delivery Table (Expected Deliverables)
+    <section id="deliverables" className="py-20 border-b border-rule bg-paper relative">
+      <div className="academic-container">
+        <div className="max-w-3xl mb-10">
+          <p className="text-xs text-muted mb-2">Section 04 · Architecture Roadmap</p>
+          <h2 className="text-2xl sm:text-3xl font-display font-semibold text-ink tracking-tight">
+            System deliverables and milestone register
           </h2>
-          <p className="mt-3 text-slate-300 text-base">
-            Systematic roadmap and technical milestones delivering a scalable, end-to-end quantum computing learning solution.
+          <p className="mt-2 text-sm text-muted">
+            Technical milestones delivering an end-to-end quantum computing instructional platform with rigorous multi-engine verification.
           </p>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`px-3.5 py-1.5 text-xs font-medium rounded-lg transition-colors cursor-pointer ${
-                filter === cat
-                  ? 'bg-cyan-500 text-slate-950 font-semibold shadow-md shadow-cyan-500/20'
-                  : 'bg-slate-900 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        {/* Filter Bar */}
+        <div className="flex flex-wrap items-center gap-2 mb-6" role="tablist" aria-label="Deliverable category filters">
+          {categories.map((cat) => {
+            const isActive = filter === cat;
+            return (
+              <button
+                key={cat}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setFilter(cat)}
+                className={`px-3 py-1.5 text-xs font-body border cursor-pointer transition-colors focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 active:bg-paper-3 disabled:opacity-50 disabled:cursor-not-allowed ${
+                  isActive
+                    ? 'bg-ink text-sheet border-ink font-medium'
+                    : 'bg-sheet text-ink-2 border-rule hover:border-ink hover:text-ink'
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Deliverables Table Container */}
-        <div className="rounded-2xl border border-white/10 bg-slate-900/40 backdrop-blur-md overflow-hidden shadow-2xl">
+        {/* Deliverables Table */}
+        <div className="border border-rule bg-sheet overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <table className="academic-table" aria-label="Deliverables register">
               <thead>
-                <tr className="border-b border-slate-800 bg-slate-950/70 text-xs font-mono text-slate-400 uppercase tracking-wider">
-                  <th className="py-4 px-6">ID & Deliverable Name</th>
-                  <th className="py-4 px-6 hidden sm:table-cell">Category</th>
-                  <th className="py-4 px-6">Scope & Technical Description</th>
-                  <th className="py-4 px-6 hidden md:table-cell">Target Tech Stack</th>
-                  <th className="py-4 px-6 text-center">Status</th>
+                <tr>
+                  <th scope="col" className="w-24">Identifier</th>
+                  <th scope="col" className="w-64">Milestone</th>
+                  <th scope="col" className="hidden sm:table-cell w-36">Domain</th>
+                  <th scope="col">Scope and technical specification</th>
+                  <th scope="col" className="hidden lg:table-cell w-56">Implementation stack</th>
+                  <th scope="col" className="text-right w-32">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 text-sm">
+              <tbody>
                 {filtered.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="py-4 px-6 align-top">
-                      <div className="font-mono text-xs text-cyan-400 font-bold mb-1">{item.id}</div>
-                      <div className="font-heading font-semibold text-white">{item.name}</div>
-                      <span className="sm:hidden inline-block mt-2 px-2 py-0.5 text-[10px] font-mono bg-slate-800 text-slate-300 rounded">
+                  <tr key={item.id} className="transition-colors hover:bg-paper/40">
+                    <td className="font-mono text-xs text-muted font-medium py-3.5">
+                      {item.id}
+                    </td>
+                    <td className="py-3.5 font-medium text-ink">
+                      {item.name}
+                      <span className="sm:hidden block mt-1 text-[11px] font-mono text-muted">
                         {item.category}
                       </span>
                     </td>
-                    <td className="py-4 px-6 align-top hidden sm:table-cell">
-                      <span className="inline-block px-2.5 py-1 text-xs font-mono bg-slate-800/80 border border-slate-700 text-slate-300 rounded-md">
+                    <td className="py-3.5 hidden sm:table-cell">
+                      <span className="tag-academic">
                         {item.category}
                       </span>
                     </td>
-                    <td className="py-4 px-6 align-top text-slate-300 leading-relaxed max-w-md">
+                    <td className="py-3.5 text-xs sm:text-sm text-ink-2 leading-relaxed">
                       {item.description}
-                      <div className="md:hidden mt-2 font-mono text-xs text-slate-400">
-                        <strong className="text-slate-500">Tech: </strong>{item.techStack}
+                      <div className="lg:hidden mt-1.5 text-xs text-muted">
+                        <span className="font-semibold text-ink-2">Stack: </span>
+                        <span className="font-mono">{item.techStack}</span>
                       </div>
                     </td>
-                    <td className="py-4 px-6 align-top hidden md:table-cell text-xs font-mono text-slate-400 leading-relaxed max-w-xs">
+                    <td className="py-3.5 hidden lg:table-cell text-xs font-mono text-muted leading-relaxed">
                       {item.techStack}
                     </td>
-                    <td className="py-4 px-6 align-top text-center">
+                    <td className="py-3.5 text-right">
                       <span
-                        className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium font-mono ${
+                        className={`inline-block px-2 py-0.5 text-xs font-mono border ${
                           item.status === 'Complete'
-                            ? 'bg-emerald-950/80 border border-emerald-500/40 text-emerald-300'
+                            ? 'text-navy border-navy/30 bg-navy/5'
                             : item.status === 'In Development'
-                            ? 'bg-cyan-950/80 border border-cyan-500/40 text-cyan-300'
-                            : 'bg-slate-800 border border-slate-700 text-slate-400'
+                            ? 'text-accent border-accent/30 bg-accent-soft'
+                            : 'text-muted border-rule bg-paper-2'
                         }`}
                       >
                         {item.status}
@@ -173,8 +181,12 @@ export const DeliverablesTable: React.FC = () => {
             </table>
           </div>
         </div>
+
+        <div className="mt-3 flex items-center justify-between text-xs text-muted">
+          <span>Showing <span className="num font-mono">{filtered.length}</span> of <span className="num font-mono">{deliverables.length}</span> system deliverables</span>
+          <span>Register updated: February 2026</span>
+        </div>
       </div>
     </section>
   );
 };
-

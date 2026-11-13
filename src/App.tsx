@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navbar } from './components/home/Navbar';
 import { HomePage } from './components/home/HomePage';
 import { LoginForm } from './components/auth/LoginForm';
 import { RegisterForm } from './components/auth/RegisterForm';
 import { UserProfile } from './components/auth/UserProfile';
+import { CoursesContainer } from './components/course/CoursesContainer';
+import { CircuitDesigner } from './components/circuit/CircuitDesigner';
 import { useAppDispatch, useAppSelector } from './store';
-import { clearError } from './store/slices/authSlice';
+import { clearError, fetchCsrfToken, restoreSession } from './store/slices/authSlice';
+import { loadStoredAppView, saveStoredAppView } from './store/storage';
 import './styles/auth.css';
+
+export type AppView = 'home' | 'auth' | 'courses' | 'designer';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const { isAuthenticated } = useAppSelector((state) => state.auth);
-  const [currentView, setCurrentView] = useState<'home' | 'auth'>('home');
+  const [currentView, setCurrentView] = useState<AppView>(() => loadStoredAppView<AppView>('home'));
   const [activeAuthTab, setActiveAuthTab] = useState<'login' | 'register'>('login');
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(restoreSession());
+    } else {
+      dispatch(fetchCsrfToken());
+    }
+  }, [dispatch]);
+
+  const handleNavigate = (view: AppView) => {
+    setCurrentView(view);
+    saveStoredAppView(view);
+  };
 
   const handleSwitchTab = (tab: 'login' | 'register') => {
     dispatch(clearError());
@@ -20,34 +38,42 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col bg-[#07090e] text-slate-200">
+    <div className="w-full min-h-screen flex flex-col bg-paper text-ink">
       {/* Universal Top Navigation */}
-      <Navbar currentView={currentView} onNavigate={(view) => setCurrentView(view)} />
+      <Navbar currentView={currentView} onNavigate={handleNavigate} />
 
       {/* Main Content Router */}
       {currentView === 'home' ? (
-        <HomePage />
+        <HomePage onNavigate={handleNavigate} />
+      ) : currentView === 'designer' ? (
+        <div className="flex-1 flex flex-col min-h-0">
+          <CircuitDesigner />
+        </div>
+      ) : currentView === 'courses' ? (
+        <div className="flex-1 flex flex-col min-h-0">
+          <CoursesContainer onNavigateAuth={() => handleNavigate('auth')} />
+        </div>
       ) : (
         <div className="auth-container">
           <div className="w-full max-w-md mb-6 flex items-center justify-between">
             <button
-              onClick={() => setCurrentView('home')}
-              className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 hover:text-cyan-300 transition-colors cursor-pointer"
+              onClick={() => handleNavigate('home')}
+              className="inline-flex items-center gap-2 text-xs font-body text-accent hover:text-ink active:text-ink transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
               Back to Platform
             </button>
-            <span className="text-xs font-mono text-slate-500">QUAL.DEV AUTH SERVICE</span>
+            <span className="text-xs text-muted">QUALGO Auth Service</span>
           </div>
 
           <header className="mb-8 text-center max-w-md">
-            <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white mb-2">
+            <h1 className="text-2xl sm:text-3xl font-display font-semibold text-ink mb-2">
               Quantum Learning Portal
             </h1>
-            <p className="text-sm text-slate-400">
-              Sign in to save your quantum circuits, sync simulation telemetry, and track course mastery.
+            <p className="text-sm text-muted">
+              Sign in to save quantum circuits and track course mastery.
             </p>
           </header>
 
