@@ -19,17 +19,25 @@ export interface AuthResponse {
   success: boolean;
   access_token: string;
   token_type: string;
+  csrf_token?: string;
   user: User;
 }
 
 export interface RegisterResponse {
   success: boolean;
+  csrf_token?: string;
   user: User;
+}
+
+export interface CsrfResponse {
+  success: boolean;
+  csrf_token: string;
 }
 
 export interface AuthState {
   user: User | null;
   accessToken: string | null;
+  csrfToken: string | null;
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
