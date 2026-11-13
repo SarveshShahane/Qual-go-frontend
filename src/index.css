@@ -1,114 +1,65 @@
 @import "tailwindcss";
+@import "./tokens.css";
+@import "./base.css";
 
-:root {
-  --text: #94a3b8;
-  --text-h: #f8fafc;
-  --bg: #07090e;
-  --bg-card: #0d121c;
-  --bg-card-hover: #131b2a;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-focus: #06b6d4;
-  --code-bg: #0a0e17;
-  --accent: #06b6d4;
-  --accent-glow: rgba(6, 182, 212, 0.25);
-  --accent-secondary: #6366f1;
-  --accent-emerald: #10b981;
-  --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+@theme {
+  --color-paper: var(--color-paper);
+  --color-paper-2: var(--color-paper-2);
+  --color-paper-3: var(--color-paper-3);
+  --color-sheet: var(--color-sheet);
+  --color-ink: var(--color-ink);
+  --color-ink-2: var(--color-ink-2);
+  --color-muted: var(--color-muted);
+  --color-rule: var(--color-rule);
+  --color-rule-2: var(--color-rule-2);
+  --color-accent: var(--color-accent);
+  --color-accent-ink: var(--color-accent-ink);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-focus: var(--color-focus);
+  --color-navy: var(--color-navy);
 
-  --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-
-  font: 16px/150% var(--sans);
-  letter-spacing: -0.01em;
-  color-scheme: dark;
-  color: var(--text);
-  background-color: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
 }
 
-html {
-  scroll-behavior: smooth;
-  background-color: #07090e;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #07090e;
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-#root {
+/* Scholarly Academic Micro-components */
+.academic-table {
   width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.academic-table th {
   text-align: left;
-  box-sizing: border-box;
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-ink);
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--color-rule-2);
+  background: var(--color-paper-2);
 }
 
-/* Custom modern scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #07090e;
-}
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+.academic-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--color-rule);
+  vertical-align: top;
+  color: var(--color-ink-2);
 }
 
-/* Typography helper classes */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--heading);
-  color: var(--text-h);
-  letter-spacing: -0.02em;
+.academic-table tr:hover td {
+  background: color-mix(in srgb, var(--color-paper-2) 60%, transparent);
 }
 
-code, pre {
-  font-family: var(--mono);
-}
-
-/* Quantum background mesh utilities */
-.quantum-grid-bg {
-  background-image: radial-gradient(rgba(6, 182, 212, 0.08) 1px, transparent 1px),
-                    radial-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-position: 0 0, 16px 16px;
-}
-
-.quantum-glow-cyan {
-  box-shadow: 0 0 40px -10px rgba(6, 182, 212, 0.3);
-}
-
-.quantum-glow-indigo {
-  box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.25);
-}
-
-.glass-card {
-  background: rgba(13, 18, 28, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-card-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.glass-card-hover:hover {
-  border-color: rgba(6, 182, 212, 0.35);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px -8px rgba(6, 182, 212, 0.15);
+.tag-academic {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--color-ink-2);
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
 }
