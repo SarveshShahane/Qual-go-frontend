@@ -1,0 +1,69 @@
+# ==============================================================================
+# QUALGO Frontend - Docker Build Ignore
+# ==============================================================================
+
+# Version control
+.git/
+.gitignore
+.gitattributes
+
+# Dependencies (always installed inside container via npm ci)
+node_modules/
+.pnp
+.pnp.js
+
+# Local build artifacts (built freshly inside the image)
+dist/
+dist-ssr/
+build/
+out/
+
+# Environment files & secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+!.env.example
+
+# Test suites & coverage
+src/**/__tests__/
+coverage/
+.vitest/
+
+# Caches
+.vite/
+.cache/
+.eslintcache
+.turbo/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local scratch & docs
+scratch/
+tmp/
+temp/
+*.tmp
+*.bak
+README.md
+
+# Dockerfiles & Compose files
+Dockerfile
+Dockerfile.*
+.dockerignore
+docker-compose*.yml
+docker-compose*.yaml
+
+# IDE & OS metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+[Dd]esktop.ini
